@@ -1,16 +1,13 @@
 #!/bin/bash
 
-cd ~/my_dbms
-typeset -i num
-
 function dropDatabase
 {
 	echo -e "\n--> Available Databases:\n"
-	ls .
+	ls ~/my_dbms
 
 	echo -e "\nPlease, Enter Database Name: "
         read name
-	if [ ! -d $name ]
+	if [ -d ~/my_dbms/$name ]
 	then
 		echo -e "\nThe name you entered is incorrect, Please enter a valid name\n";
 	       	dropDatabase;
