@@ -25,7 +25,7 @@ function TableMenu
 
         case $num in
                 1) . ./create_table.sh ;;
-                2) ls ./my_dbms; TableMenu;; # after list the content execute the function again.
+                2) ls ~/my_dbms/$name; TableMenu;; # after list the content execute the function again.
                 3) . ./drop_table.sh ;;
                 4) . ./insert_into_table.sh ;;
 		5) . ./select_from_table.sh ;;
@@ -37,4 +37,5 @@ function TableMenu
         esac
 
 }
+
 TableMenu

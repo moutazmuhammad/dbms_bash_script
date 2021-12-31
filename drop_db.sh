@@ -1,23 +1,25 @@
 #!/bin/bash
 
+echo -e "\n-------------------------"
+	echo -e "** The Avelable Databases"
+	echo -e "-------------------------\n"
+	ls ~/my_dbms;
+	echo -e "\n"
+
 function dropDatabase
 {
-	echo -e "\n--> Available Databases:\n"
-	ls ~/my_dbms
+        read -p "~> Please, Enter Database Name you want to delete: " name
 
-	echo -e "\nPlease, Enter Database Name: "
-        read name
-	if [ -d ~/my_dbms/$name ]
+	if [ ! -d ~/my_dbms/$name ]
 	then
-		echo -e "\nThe name you entered is incorrect, Please enter a valid name\n";
+		echo -e "\nThe name you entered is incorrect, Please enter correct name\n";
 	       	dropDatabase;
 	else
-		rm -r $name
+		rm -r ~/my_dbms/$name
                	echo "Database has been deleted successfully."
-		sleep 2
+		sleep 1
 	fi
 }
 
 dropDatabase
-. ~/root_menu.sh
-
+. ./root_menu.sh
