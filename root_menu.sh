@@ -27,10 +27,10 @@ function RootMenu
 	case $num in
   		1) . ./create_db.sh ;;
   		2) ls ./my_dbms; RootMenu;; # after list the content execute the function again.
-  		3) use_db.sh ;;
-    		4) drop_db.sh ;;
+  		3) . ./use_db.sh ;;
+    		4) . ./drop_db.sh ;;
       		5) exit ;;
-		*) echo "Wrong Chois! please Enter Correct Number ^_^"; RootMenu;;
+		*) echo "Wrong Choise! please Enter Correct Number..."; RootMenu;;
 	esac
 
 }
