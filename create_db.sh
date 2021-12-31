@@ -1,0 +1,34 @@
+#!/bin/bash
+
+shopt -s extglob #Lib treat
+
+function createDB 
+{
+
+echo -e "\nEnter Database name: "
+read dbname
+
+case $dbname in
+	+([a-zA-Z])) 
+                mkdir ~/my_dbms/$dbname 2>/dev/null;
+		if [[ $? == 0 ]]
+		then
+			echo 'Database Created Successfully.'
+			sleep 1
+			. ./root_menu.sh
+		else 
+			echo "Database $dbname is Exist." 
+			createDB
+		fi 
+		;;
+	*) echo -e "\nDatabase name can not contain number or spesial characters.\nplease, Try again..."
+	   createDB ;;
+esac
+}
+createDB
+
+
+
+
+
+
