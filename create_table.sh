@@ -32,16 +32,18 @@ function MetaData
 {
 	echo -e '\n~> Enter Number of Columns: '
 	read col_num
+	export col_num
 	case  $col_num in
 		+([1-9]))
 			typeset -i index
 	                index=0
+			let i=index
 			let nu=index+1
 			((flag=0))
 			metaData=""
 			column_type=""
 			ColumnTypeLine=""
-			sep="|"
+			sep=":"
 			newLine="\n"
 
 			while [[ $index -lt $col_num ]]
@@ -50,6 +52,8 @@ function MetaData
 				then
 					echo -e "\n~> Enter Primary Key column $nu:"
 					read col_name
+					arr[$i]=$col_name
+					((i++))
 					if [[ $col_name == +([a-zA-Z]) ]]
 					then
 						((flag=1))
@@ -59,7 +63,9 @@ function MetaData
 					fi
 				else
 					echo -e "\n~> Enter column $nu:"
-                                        read col_name
+                    read col_name
+					arr[$i]=$col_name
+					((i++))
 					if [[ $col_name != +([a-zA-Z]) ]]
                                         then
                                                 echo -e "** Column name must be string.\nYou will enter table metadata from begining ..."

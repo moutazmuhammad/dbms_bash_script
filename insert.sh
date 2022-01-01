@@ -8,17 +8,23 @@ function Insert
     echo -e "\n~> Enter Table name: "
     read table_name
 
-    case $table_name in
-        +([a-zA-Z]))
-            if [ ! -f $path/$table_name ]
-            then
-                echo "\n** Table ($table_name) is not Exist.\nPlease try again... \n"
-                Insert
-            else 
-                
-            fi
-            ;;
-        *) echo -e "\n** There is no Table name contain number or spesial characters.\nplease, Try again..."
-            Insert ;;
-    esac
+
+    if [ ! -f $path/$table_name ]
+    then
+        echo "\n** Table ($table_name) is not Exist.\nPlease try again... \n"
+        Insert
+    else
+        typeset -i index
+        index=0
+        while [[ $index -lt $col_num ]]
+        do
+            awk -F: '{if(NR==1) for ( i=1; i<NF; i++) print $i}' $path/$table_name    
+        done
+        
+        
+
+        
+    fi
 }
+
+Insert

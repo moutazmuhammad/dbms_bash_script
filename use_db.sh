@@ -22,16 +22,16 @@ function TableMenu
         read -p "~> Please, Enter a number: " num
 
         case $num in
-            1) . ./create_table.sh ;;
-                2) ListTables; TableMenu;; # after list the content execute the function again.
-                3) . ./drop_table.sh ;;
-                4) . ./insert_into_table.sh ;;
-		5) . ./select_from_table.sh ;;
-		6) . ./delete_from_table.sh ;;
-		7) . ./update_table ;;
-		8) . ./root_menu.sh ;;
-                9) exit ;;
-                *) echo "** Wrong Choise! please Enter Correct Number..."; TableMenu;;
+			1) . ./create_table.sh ;;
+			2) ListTables; TableMenu;; # after list the content execute the function again.
+			3) . ./drop_table.sh ;;
+			4) . ./insert.sh ;;
+			5) . ./select_from_table.sh ;;
+			6) . ./delete_from_table.sh ;;
+			7) . ./update_table ;;
+			8) . ./root_menu.sh ;;
+			9) exit ;;
+			*) echo "** Wrong Choise! please Enter Correct Number..."; TableMenu;;
         esac
 }
 
