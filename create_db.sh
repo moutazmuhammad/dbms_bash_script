@@ -10,7 +10,7 @@ read dbname
 
 case $dbname in
 	+([a-zA-Z])) 
-                mkdir ~/my_dbms/$dbname 2>/dev/null;
+                mkdir ./my_dbms/$dbname 2>/dev/null;
 		if [[ $? == 0 ]]
 		then
 			echo 'Database Created Successfully.'

@@ -3,7 +3,7 @@
 # Make main directory has all databases directories if not exist.
 PS3='>'
 dir="my_dbms"
-mkdir -p ~/$dir
+mkdir -p ./$dir
 
 clear
 echo -e "\n                    WELCOME TO MY DBMS\n"
@@ -38,7 +38,7 @@ function RootMenu
 
 function ListDatabases
 {
-	num=`ls ~/my_dbms/ | wc -l`
+	num=`ls ./my_dbms/ | wc -l`
 	if [[ $num == "0" ]]
 	then
 		echo -e "There is no Avelable Database.\nPlease, try again..."
@@ -48,7 +48,7 @@ function ListDatabases
 		echo -e "\n-------------------------"
 		echo -e "** The Avelable Databases"
 		echo -e "-------------------------\n"
-		ls ~/my_dbms/
+		ls ./my_dbms/
 		echo -e "\n\n"
 		RootMenu; # after list the content execute the function again.
 	fi
