@@ -9,7 +9,7 @@ then
 		ls ./my_dbms;
 		echo -e "\n"
 else
-	echo -e "\nThere is no Avilavble Database"
+	echo -e "\n** There is no Avilavble Database"
 	sleep 1
 	clear 
 	. ./root_menu.sh
@@ -21,11 +21,11 @@ function dropDatabase
 
 	if [ ! -d ./my_dbms/$name ]
 	then
-		echo -e "\nThe name you entered is incorrect, Please enter correct name\n";
+		echo -e "\n** The name you entered is incorrect, Please enter correct name\n";
 	       	dropDatabase;
 	else
 		rm -r ./my_dbms/$name
-               	echo "Database has been deleted successfully."
+               	echo "** Database has been deleted successfully."
 		sleep 1
 	fi
 }

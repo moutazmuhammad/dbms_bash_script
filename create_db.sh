@@ -13,15 +13,15 @@ case $dbname in
                 mkdir ./my_dbms/$dbname 2>/dev/null;
 		if [[ $? == 0 ]]
 		then
-			echo 'Database Created Successfully.'
+			echo '** Database Created Successfully.'
 			sleep 1
 			. ./root_menu.sh
 		else 
-			echo "Database ($dbname) is Exist." 
+			echo "** Database ($dbname) is Exist." 
 			createDB
 		fi 
 		;;
-	*) echo -e "\nDatabase name can not contain number or spesial characters.\nplease, Try again..."
+	*) echo -e "\n** Database name can not contain number or spesial characters.\nplease, Try again..."
 	   createDB ;;
 esac
 }

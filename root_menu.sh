@@ -30,7 +30,7 @@ function RootMenu
   		3) UseDatabase ;;
     		4) . ./drop_db.sh ;;
       		5) exit ;;
-		*) echo "Wrong Choise! please Enter Correct Number..."; RootMenu;;
+		*) echo "** Wrong Choise! please Enter Correct Number..."; RootMenu;;
 	esac
 
 }
@@ -41,7 +41,7 @@ function ListDatabases
 	num=`ls ./my_dbms/ | wc -l`
 	if [[ $num == "0" ]]
 	then
-		echo -e "There is no Avelable Database.\nPlease, try again..."
+		echo -e "** There is no Avelable Database.\nPlease, try again..."
 		sleep 1
 		. ./root_menu.sh
 	else
@@ -62,7 +62,7 @@ function UseDatabase
     then
 	. ./use_db.sh
     else
-	echo -e "\nDatabase ($select_name) dose not exist.\n"
+	echo -e "\n** Database ($select_name) dose not exist.\n"
 	UseDatabase
     fi
 }
