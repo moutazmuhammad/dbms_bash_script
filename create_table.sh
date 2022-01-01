@@ -5,7 +5,7 @@ path=./my_dbms/$select_name
 
 function createTable
 {
-echo -e "\nEnter Table name: "
+echo -e "\n~> Enter Table name: "
 read table_name
 
 case $table_name in
@@ -14,30 +14,30 @@ case $table_name in
 		then
 			touch ./my_dbms/$select_name/$table_name;
 			MetaData
-			echo -e 'Table Created Successfully.\n'
+			echo -e '** Table Created Successfully.\n'
 			sleep 1
 			. ./use_db.sh
 		else 
-			echo "Table ($table_name) is Exist."
+			echo "** Table ($table_name) is Exist."
 			sleep 1
 			createTable
 		fi
 			;;
-	*) echo -e "\nTable name can not contain number or spesial characters.\nplease, Try again..."
+	*) echo -e "\n** Table name can not contain number or spesial characters.\nplease, Try again..."
 	   createTable ;;
 esac
 }
 
 function MetaData
 {
-	echo -e '\nEnter Number of Columns: '
+	echo -e '\n~> Enter Number of Columns: '
 	read col_num
 	case  $col_num in
 		+([1-9]))
 			typeset -i index
 	                index=0
 			let nu=index+1
-			flag="0"
+			((flag=0))
 			metaData=""
 			column_type=""
 			ColumnTypeLine=""
@@ -46,32 +46,45 @@ function MetaData
 
 			while [[ $index -lt $col_num ]]
 			do
-				if [[ $flag=="0" ]]
+				if [[ $flag -eq 0 ]]
 				then
-					echo -e "\nEnter Primary Key column $nu:"
+					echo -e "\n~> Enter Primary Key column $nu:"
 					read col_name
-					$flag="1"
+					if [[ $col_name == +([a-zA-Z]) ]]
+					then
+						((flag=1))
+					else
+						echo -e "** Column name must be string.\nYou will enter table metadata from begining ..."
+						MetaData
+					fi
 				else
-					echo -e "\nEnter column $nu:"
+					echo -e "\n~> Enter column $nu:"
                                         read col_name
+					if [[ $col_name != +([a-zA-Z]) ]]
+                                        then
+                                                echo -e "** Column name must be string.\nYou will enter table metadata from begining ..."
+						MetaData
+                                        fi
 				fi
-				echo -e "\nEnter Column data type \n1] Int \n2] Str"
+				echo -e "\n~> Enter Column data type: \n1] Int \n2] Str"
                                         read col_type
                                         case $col_type in
                                                 1) column_type="int";;
                                                 2) column_type="str";;
-                                                *) echo "Wrong Choise..";;
+                                                *) echo -e "Wrong Choise..\nYou will enter table metadata from begining ... "; 
+						   ((flag=0));
+						   MetaData;;
                                         esac
 				((index++))
 				((nu++))
-				metaData+=$sep$col_name$sep
-				ColumnTypeLine+=$sep$column_type$sep
+				metaData+=$col_name$sep
+				ColumnTypeLine+=$column_type$sep
 			done
 			echo $metaData >> ./my_dbms/$select_name/$table_name
 			echo $ColumnTypeLine >> ./my_dbms/$select_name/$table_name
 			;;
 		*)
-			echo "You must enter number.."
+			echo "** You must enter number.."
 			MetaData
 			;;
 	esac
