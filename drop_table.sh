@@ -1,6 +1,6 @@
 #!/bin/bash
 
-check_tb=`ls ./my_dbms/$select_name`
+check_tb=`ls ./my_dbms/$select_name|wc -l`
 if [ $check_tb != "0" ]
 then
     echo -e "\n-------------------------"
