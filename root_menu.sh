@@ -41,7 +41,7 @@ function ListDatabases
 	num=`ls ./my_dbms/ | wc -l`
 	if [[ $num == "0" ]]
 	then
-		echo -e "** There is no Avelable Database.\nPlease, try again..."
+		echo -e "\n** There is no Avelable Database....\n"
 		sleep 1
 		. ./root_menu.sh
 	else
@@ -56,15 +56,23 @@ function ListDatabases
 
 function UseDatabase
 {
-    export select_name
-    read -p "~> Please Enter Database Name: " select_name
-    if [ -d ./my_dbms/$select_name ]
-    then
-	. ./use_db.sh
-    else
-	echo -e "\n** Database ($select_name) dose not exist.\n"
-	UseDatabase
-    fi
+	num=`ls ./my_dbms/ | wc -l`
+	if [[ $num == "0" ]]
+	then
+		echo -e "\n** There is no Avelable Database... \n"
+		sleep 1
+		. ./root_menu.sh
+	else
+		export select_name
+		read -p "~> Please Enter Database Name: " select_name
+		if [ -d ./my_dbms/$select_name ]
+		then
+		. ./use_db.sh
+		else
+		echo -e "\n** Database ($select_name) dose not exist.\n"
+		UseDatabase
+		fi
+	fi
 }
 
 RootMenu

@@ -77,8 +77,8 @@ function MetaData
                                         esac
 				((index++))
 				((nu++))
-				metaData+=$sep$col_name$sep
-				ColumnTypeLine+=$sep$column_type$sep
+				metaData+=$col_name$sep
+				ColumnTypeLine+=$column_type$sep
 			done
 			echo $metaData >> ./my_dbms/$select_name/$table_name
 			echo $ColumnTypeLine >> ./my_dbms/$select_name/$table_name
