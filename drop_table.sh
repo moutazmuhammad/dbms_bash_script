@@ -18,7 +18,7 @@ fi
 function dropTable {
    
              read -p "~> Please, Enter Table Name you want to delete: " Tname
-               if [ ! -f ~/my_dbms/$select_name/$Tname ]
+               if [ ! -f ./my_dbms/$select_name/$Tname ]
                then
                 echo -e "\nThe name you entered is incorrect, Please enter correct name\n";
                 dropTable;
