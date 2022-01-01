@@ -5,7 +5,7 @@ shopt -s extglob #Lib treat
 function createDB 
 {
 
-echo -e "\nEnter Database name: "
+echo -e "\n~> Enter Database name: "
 read dbname
 
 case $dbname in
@@ -17,7 +17,7 @@ case $dbname in
 			sleep 1
 			. ./root_menu.sh
 		else 
-			echo "Database $dbname is Exist." 
+			echo "Database ($dbname) is Exist." 
 			createDB
 		fi 
 		;;

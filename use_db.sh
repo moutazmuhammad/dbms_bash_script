@@ -1,14 +1,10 @@
 #!/bin/bash
 
-export select_name
-read -p "Please, Enter Database Name: " select_name
-
+clear
+echo -e "\nYou Use -> $select_name Database.\n"
 
 function TableMenu
 {
-if [ -d ./my_dbms/$select_name ]
-then
-
         echo -e "\n\n            o<><><><><><><><><><><><><><><><>o"
         echo "            |                                |"
         echo "            |  1 -> Create New Table         |"
@@ -26,7 +22,7 @@ then
         read -p "Please, Enter a number: " num
 
         case $num in
-                1) . ./create_table.sh ;;
+            1) . ./create_table.sh ;;
                 2) ListTables; TableMenu;; # after list the content execute the function again.
                 3) . ./drop_table.sh ;;
                 4) . ./insert_into_table.sh ;;
@@ -37,10 +33,6 @@ then
                 9) exit ;;
                 *) echo "Wrong Choise! please Enter Correct Number..."; TableMenu;;
         esac
-else
-	echo -e "\nDatabase ($select_name) dose not Exist.\n" 
-	. ./use_db.sh
-fi
 }
 
 function ListTables

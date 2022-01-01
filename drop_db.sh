@@ -1,10 +1,19 @@
 #!/bin/bash
 
-echo -e "\n-------------------------"
-	echo -e "** The Avelable Databases"
-	echo -e "-------------------------\n"
-	ls ./my_dbms;
-	echo -e "\n"
+check_db=`ls ./my_dbms | wc -l`
+if [ $check_db != "0" ]
+then
+	echo -e "\n-------------------------"
+		echo -e "** The Avelable Databases"
+		echo -e "-------------------------\n"
+		ls ./my_dbms;
+		echo -e "\n"
+else
+	echo -e "\nThere is no Avilavble Database"
+	sleep 1
+	clear 
+	. ./root_menu.sh
+fi
 
 function dropDatabase
 {

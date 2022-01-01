@@ -27,7 +27,7 @@ function RootMenu
 	case $num in
   		1) . ./create_db.sh ;;
   		2) ListDatabases ;; #call function
-  		3) . ./use_db.sh ;;
+  		3) UseDatabase ;;
     		4) . ./drop_db.sh ;;
       		5) exit ;;
 		*) echo "Wrong Choise! please Enter Correct Number..."; RootMenu;;
@@ -52,6 +52,19 @@ function ListDatabases
 		echo -e "\n\n"
 		RootMenu; # after list the content execute the function again.
 	fi
+}
+
+function UseDatabase
+{
+    export select_name
+    read -p "~> Please Enter Database Name: " select_name
+    if [ -d ./my_dbms/$select_name ]
+    then
+	. ./use_db.sh
+    else
+	echo -e "\nDatabase ($select_name) dose not exist.\n"
+	UseDatabase
+    fi
 }
 
 RootMenu
