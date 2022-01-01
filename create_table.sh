@@ -1,7 +1,7 @@
 #!/bin/bash
 shopt -s extglob
 
-path=~/my_dbms/$select_name
+path=./my_dbms/$select_name
 
 function createTable
 {
@@ -12,7 +12,7 @@ case $table_name in
 	+([a-zA-Z])) # work by using [shopt -s extglob]
 		if [ ! -f $path/$table_name ]
 		then
-			touch ~/my_dbms/$select_name/$table_name;
+			touch ./my_dbms/$select_name/$table_name;
 			
 			echo -e 'Table Created Successfully.\n'
 			sleep 1
