@@ -1,7 +1,7 @@
 #!/bin/bash
 
 clear
-echo -e "\nYou Use -> $select_name Database.\n"
+echo -e "\nYou Use -> $select_name Database."
 
 function TableMenu
 {
@@ -17,22 +17,22 @@ function TableMenu
 	echo "            |  8 -> Back To Main Menu        |"
 	echo "            |  9 -> Exit From DBMS           |"
 	echo "            |                                |"
-        echo -e "            o<><><><><><><><><><><><><><><><>o\n"
+    echo -e "            o<><><><><><><><><><><><><><><><>o\n"
 
-        read -p "~> Please, Enter a number: " num
+	read -p "~> Please, Enter a number: " num
 
-        case $num in
-			1) . ./create_table.sh ;;
-			2) ListTables; TableMenu;; # after list the content execute the function again.
-			3) . ./drop_table.sh ;;
-			4) . ./insert.sh ;;
-			5) . ./select_from_table.sh ;;
-			6) . ./delete_from_table.sh ;;
-			7) . ./update_table ;;
-			8) . ./root_menu.sh ;;
-			9) exit ;;
-			*) echo "** Wrong Choise! please Enter Correct Number..."; TableMenu;;
-        esac
+	case $num in
+		1) . ./create_table.sh ;;
+		2) ListTables; TableMenu;; # after list the content execute the function again.
+		3) . ./drop_table.sh ;;
+		4) . ./insert.sh ;;
+		5) . ./select_from_table.sh ;;
+		6) . ./delete_from_table.sh ;;
+		7) . ./update_table ;;
+		8) . ./root_menu.sh ;;
+		9) exit ;;
+		*) echo "* Wrong Choise! please Enter Correct Number..."; TableMenu;;
+	esac
 }
 
 function ListTables
@@ -40,7 +40,7 @@ function ListTables
 	db_number=`ls ./my_dbms/$select_name | wc -l`
 	if [[ $db_number == "0" ]]
 	then
-		echo -e "** There is no Avelable Table...\n"
+		echo -e "\n* There is no Avelable Table...\n"
 		sleep 1
 		clear
 		. ./use_db.sh

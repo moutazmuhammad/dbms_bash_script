@@ -1,11 +1,10 @@
 #!/bin/bash
 
-# Make main directory has all databases directories if not exist.
-PS3='>'
-dir="my_dbms"
-mkdir -p ./$dir
 
+dir="my_dbms" 
+mkdir -p ./$dir # Make main directory has all databases directories if not exist.
 clear
+
 echo -e "\n                    WELCOME TO MY DBMS\n"
 
 # Main Function: Each number executes a script. 
@@ -30,7 +29,7 @@ function RootMenu
   		3) UseDatabase ;;
     		4) . ./drop_db.sh ;;
       		5) exit ;;
-		*) echo "** Wrong Choise! please Enter Correct Number..."; RootMenu;;
+		*) echo "* Wrong Choise! please Enter Correct Number..."; RootMenu;;
 	esac
 
 }
@@ -41,13 +40,13 @@ function ListDatabases
 	num=`ls ./my_dbms/ | wc -l`
 	if [[ $num == "0" ]]
 	then
-		echo -e "\n** There is no Avelable Database....\n"
+		echo -e "\n* There is no Avelable Database....\n"
 		sleep 1
 		. ./root_menu.sh
 	else
-		echo -e "\n-------------------------"
+		echo -e "\n--------------------------"
 		echo -e "** The Avelable Databases"
-		echo -e "-------------------------\n"
+		echo -e "--------------------------\n"
 		ls ./my_dbms/
 		echo -e "\n\n"
 		RootMenu; # after list the content execute the function again.
@@ -59,7 +58,7 @@ function UseDatabase
 	num=`ls ./my_dbms/ | wc -l`
 	if [[ $num == "0" ]]
 	then
-		echo -e "\n** There is no Avelable Database... \n"
+		echo -e "\n* There is no Avelable Database... \n"
 		sleep 1
 		. ./root_menu.sh
 	else
@@ -69,7 +68,7 @@ function UseDatabase
 		then
 		. ./use_db.sh
 		else
-		echo -e "\n** Database ($select_name) dose not exist.\n"
+		echo -e "\n* Database ($select_name) dose not exist.\n"
 		UseDatabase
 		fi
 	fi
