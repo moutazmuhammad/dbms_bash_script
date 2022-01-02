@@ -11,24 +11,24 @@ then
     . ./use_db.sh
 fi
 
-function DeleteFromTable {
-       echo -p "\n** Enter Primary key: "
-       read Pkey
-       Pcheck=`awk '{if($1 = $Pkey) print 1}' $path/$table_name`
-       echo $Pcheck
-       #`awk -F: 'BEGIN{res=1}{if ($1='$Pkey')} END{print res}' $path/$table_name`
-       #Pcheck = `awk -F: '{ res = 1 }{if ($1 = '$Pkey')} END{print res}' $path/$table_name`
-       if  [[ $Pcheck -eq 1 ]]
-          then
-           row_Del=`awk -F: '{if ($1 = '$Pkey'){print NR}}' $path/$table_name`
-                sed -i ''$row_Del'd' $path/$table_name
-                echo "Data with Primary key $Pkey deleted succefully!"
-        else
-		echo "NO available data!"
 
+function DeleteFromTable {
+       echo -e "\n** Enter Primary key: "
+       read -p "~> " Pkey
+       Pcheck=`awk -F: '{if ($1 == "'$Pkey'") print 1}' $path/$table_name`
+       if  [[ $Pcheck -eq 1 ]]
+
+          then
+           row_Del=`awk -F: '{if ($1 == "'$Pkey'"){print NR}}' $path/$table_name`
+                sed -i ''$row_Del'd' $path/$table_name
+                echo "* Data with Primary key $Pkey deleted succefully!"
+                sleep 1
+        else
+		echo "* NO available data!"
+        sleep 1
 	fi
 
 }
-DeleteFromTable             
-
+DeleteFromTable
+. ./use_db.sh
              
