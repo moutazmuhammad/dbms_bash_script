@@ -3,6 +3,7 @@ shopt -s extglob
 
 path=./my_dbms/$select_name
 
+# Check if table exist or not
 echo -e "\n** Enter Table name: "
     read -p "~> " table_name
 
@@ -13,8 +14,12 @@ then
     . ./insert.sh
 fi
 
+
 function InsertData
 {
+    ((flag=1))
+    export recordData=""
+    sep=":"
     cols_num=`awk -F: '{if(NR==1) print NF}' $path/$table_name` #number of columns in table col+1
     
     for (( i = 1; i < $cols_num; i++ ))
@@ -43,35 +48,36 @@ function InsertData
             do
                 echo -e "\n* Please, Enter STRING .\n  You will enter the data of record from beginning...\n"
                 sleep 1
+                
                 InsertData
             done
 
         fi
-        
-
 
         # Check if value is primary key or not.
-        ((line=4))
-        ((index=3))
-        file_line_num=`cat $path/$table_name | wc -l`
 
-        while [[ $index < $file_line_num ]]
-        do
-            var_name=`cat $path/$table_name | head -$line | tail -1 | cut -d: -f1`
-            if [[ $value == $var_name ]]
-            then
-                echo -e "* You Sorry, you can't duplicate the primary key.\n  please try again...\n" 
-                sleep 1
-                InsertData
-            fi
-            ((line++))
-            ((index++))
-        done
-        
-        
+        Pcheck=`awk -F: '{if ($1 == "'$value'") print 1}' $path/$table_name`  # this line check if PK is exist (will print 1)
+        if  [[ $Pcheck -eq 1 ]]
+        then
+            echo -e "* You Sorry, you can't duplicate the primary key.\n  please try again...\n"
+            sleep 1
+            InsertData
+        else
+            recordData+=$value$sep
+        fi
 
-    done   
-    
+    done
+
 }
 
-InsertData
+# this function dose not allow to duplicate lines by 'echo' like "END"
+function echoData
+{
+    InsertData
+    echo $recordData >> ./my_dbms/$select_name/$table_name
+    echo -e "\n* Record Added succefully...\n"
+    sleep 1
+    . ./use_db.sh
+}
+echoData
+
