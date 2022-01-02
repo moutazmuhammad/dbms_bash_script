@@ -28,7 +28,7 @@ function TableMenu
 		4) . ./insert.sh ;;
 		5) . ./select_from_table.sh ;;
 		6) . ./delete_from_table.sh ;;
-		7) . ./update_table ;;
+		7) . ./update_table.sh ;;
 		8) . ./root_menu.sh ;;
 		9) exit ;;
 		*) echo "* Wrong Choise! please Enter Correct Number..."; TableMenu;;
