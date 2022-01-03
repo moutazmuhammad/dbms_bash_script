@@ -26,7 +26,7 @@ function TableMenu
 		2) ListTables; TableMenu;; # after list the content execute the function again.
 		3) . ./drop_table.sh ;;
 		4) . ./insert.sh ;;
-		5) . ./select_from_table.sh ;;
+		5) . ./select.sh ;;
 		6) . ./delete_from_table.sh ;;
 		7) . ./update_table.sh ;;
 		8) . ./root_menu.sh ;;
