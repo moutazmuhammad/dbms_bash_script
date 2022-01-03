@@ -2,7 +2,7 @@
 shopt -s extglob
 
 path=./my_dbms/$select_name
-
+PS3='~> '
 function createTable
 {
 	echo -e "\n** Enter Table name: "
@@ -74,21 +74,25 @@ function MetaData
                     fi
 				fi
 
-				echo -e "\n** Enter Column data type: \n    1] Integer \n    2] String"
-				read -p "~> " col_type
+		
+				select col_type in "Integer" "string"
+				do
 
-				case $col_type in
-						1) column_type="int";;
-						2) column_type="str";;
-						*) echo -e "Wrong Choise..\nYou will enter table metadata from begining ... "; 
-						   ((flag=0));
-						   MetaData;;
-				esac
+					case $col_type in
+							"Integer") column_type="int"; break;;
+							"string") column_type="str"; break;;
+							*) echo -e "Wrong Choise..\nYou will enter table metadata from begining ... "; 
+							((flag=0));
+					esac
+
+				done
+
+				
+				metaData+=$col_name$sep
+				ColumnTypeLine+=$column_type$sep
 
 				((index++))
 				((nu++))
-				metaData+=$col_name$sep
-				ColumnTypeLine+=$column_type$sep
 
 			done
 
