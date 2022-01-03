@@ -14,6 +14,7 @@ fi
 function Ubdate_table 
 {    
 
+
 	echo -e "\n** Enter Primary key value: "
     read -p "~> " Pkey
 
@@ -27,29 +28,31 @@ function Ubdate_table
 		Ubdate_table
 	fi
 
+
+
 	echo -e "\n** Enter Column Name: "
     read -p "~> " selected_col_name
 
-	cols_num=`awk -F: '{if(NR==1) print NF}' $path/$table_name` #number of columns in row in table (col+1)
+	cols_num=`awk -F: '{if(NR==1) print NF}' $path/$table_name` #number of columns in table col+1
 
 	for (( i=1 ; i<$cols_num ; i++ ))
     do
-		specific_col_name=`cat $path/$table_name | head -1 | cut -d: -f$i` # get name of column that entered by user
+
+		specific_col_name=`cat $path/$table_name | head -1 | cut -d: -f$i` # each loop this variable=new field in line
 
 		if [[ $selected_col_name == $specific_col_name ]]
 		then 
-			res=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$i`
 
 			echo -e "\* Enter new Value to set: "
         	read newValue
 
-            result=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | cut -d ':' -f$specific_col_num`
-			new=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | sed 's/"'$result'"/"'$newValue'"'`
-        
-            echo "Row updated successfully"
-			sleep 1
-		fi
+            oldValue=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$i` # this line git the old value
 
+			sed -i ''$row_num's/'$oldValue'/'$newValue'/g' $path/$table_name # replace old value by new one
+        
+            echo -e "* Row updated successfully.\n"
+
+		fi
 	done
 
 
