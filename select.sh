@@ -131,7 +131,7 @@ function SelectSpecificRecord
 		then 
 
 		
-			res=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$i`
+			res=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$i` # this line print the record has primary key enterd by user
 			echo -e "\n$selected_col_name of record with Primary key [$Pkey] :"
 			echo -e "--> $res"
 
