@@ -1,9 +1,11 @@
 #!/bin/bash
-
+shopt -s extglob
 
 dir="my_dbms" 
 mkdir -p ./$dir # Make main directory has all databases directories if not exist.
 clear
+
+echo -e "by: \t Moutaz Muhammad \t & \t Muhammad Alaa"
 
 echo -e "\n                    WELCOME TO MY DBMS\n"
 
@@ -55,22 +57,39 @@ function ListDatabases
 
 function UseDatabase
 {
-	num=`ls ./my_dbms/ | wc -l`
-	if [[ $num == "0" ]]
+	num=$(ls ./my_dbms/ | wc -l) # get number of folders in directory
+	
+	if [[ $num -eq 0 ]]
 	then
+
 		echo -e "\n* There is no Avelable Database... \n"
 		sleep 1
 		. ./root_menu.sh
+
 	else
+		echo -e "\n--------------------------"
+		echo -e "** The Avelable Databases"
+		echo -e "--------------------------\n"
+		ls ./my_dbms/
+		echo -e "\n\n"
+
 		export select_name
 		read -p "~> Please Enter Database Name: " select_name
-		if [ -d ./my_dbms/$select_name ]
+
+		if [[ $select_name == +([a-zA-Z]) ]] # to fix 'enter' bug
 		then
-		. ./use_db.sh
+			if [ -d ./my_dbms/$select_name ]
+			then
+				. ./use_db.sh
+			else
+				echo -e "\n* Database ($select_name) dose not exist.\n"
+				UseDatabase
+			fi
 		else
-		echo -e "\n* Database ($select_name) dose not exist.\n"
-		UseDatabase
+			echo -e "\n* Database ($select_name) dose not exist.\n"
+			UseDatabase
 		fi
+
 	fi
 }
 

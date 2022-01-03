@@ -1,6 +1,15 @@
 #!/bin/bash
 path=./my_dbms/$select_name
 
+db_number=`ls $path | wc -l`
+if [[ $db_number == "0" ]]
+then
+    echo -e "\n* There is no Avelable Table...\n"
+    sleep 1
+    clear
+    . ./use_db.sh
+fi
+
 # Check if table exist or not
 echo -e "\n** Enter Table name: "
     read -p "~> " table_name

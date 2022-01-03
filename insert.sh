@@ -2,6 +2,16 @@
 shopt -s extglob
 
 path=./my_dbms/$select_name
+
+db_number=`ls $path | wc -l`
+if [[ $db_number == "0" ]]
+then
+    echo -e "\n* There is no Avelable Table...\n"
+    sleep 1
+    clear
+    . ./use_db.sh
+fi
+
 ((i=1))
 ((flag=1))
 # Check if table exist or not
