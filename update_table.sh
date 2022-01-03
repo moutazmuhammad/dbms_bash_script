@@ -10,8 +10,10 @@ then
     sleep 1
     . ./use_db.sh
 fi
+
 function Ubdate_table 
 {    
+
 	echo -e "\n** Enter Primary key value: "
     read -p "~> " Pkey
 
@@ -28,44 +30,41 @@ function Ubdate_table
 	echo -e "\n** Enter Column Name: "
     read -p "~> " selected_col_name
 
-	cols_num=`awk -F: '{if(NR==1) print NF}' $path/$table_name` #number of columns in table col+1
+	cols_num=`awk -F: '{if(NR==1) print NF}' $path/$table_name` #number of columns in row in table (col+1)
 
 	for (( i=1 ; i<$cols_num ; i++ ))
     do
-		specific_col_num=`cat $path/$table_name | head -1 | cut -d: -f$i` # get number of column that entered by user
+		specific_col_name=`cat $path/$table_name | head -1 | cut -d: -f$i` # get name of column that entered by user
 
-		if [[ $selected_col_name == $specific_col_num ]]
+		if [[ $selected_col_name == $specific_col_name ]]
 		then 
 			res=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$i`
-			# echo -e "\n$selected_col_name of record with Primary key [$Pkey] :"
-			# echo -e "--> $res"
-		else
-			echo -e "* The Column name you entered is wrong!"
-			sleep 1
-			Ubdate_table
-		fi
-	done
-	#echo -e "\nPress [b] return to previous menu ."
-	#read -p "~> " back
-	#while true
-	#do
-	#	if [[ $back == 'b' || $b == 'b' ]]
-	#	then
-			#SelectMenu
-	#	else
-	#		echo -e "\nPress [b] return to previous menu ."
-	#		read -p "~> " b
-	#	fi
-	#done
 
+			echo -e "\* Enter new Value to set: "
+        	read newValue
 
-        echo -e "\* Enter new Value to set: "
-        read newValue
-            result=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$specific_col_num`
+            result=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | cut -d ':' -f$specific_col_num`
 			new=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | sed 's/"'$result'"/"'$newValue'"'`
         
-                     echo "Row updated successfully"
+            echo "Row updated successfully"
+			sleep 1
+		fi
 
+	done
+
+
+	echo -e "\nPress [b] return to previous menu ."
+	read -p "~> " back
+	while true
+	do
+		if [[ $back == 'b' || $b == 'b' ]]
+		then
+			SelectMenu
+		else
+			echo -e "\nPress [b] return to previous menu ."
+			read -p "~> " b
+		fi
+	done
 
 }
 

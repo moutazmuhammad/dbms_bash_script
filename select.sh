@@ -50,7 +50,6 @@ function SelectAllRecords
 	((row_num-=2)) # Number of records with out lines [1 (colum name) 2 (column type)]
 	column -t -s':' $path/$table_name | tail -$row_num # column command [-t] print in columns [-s] separator
 
-
 	echo -e "\nPress [b] return to previous menu ."
 	read -p "~> " back
 
@@ -86,7 +85,6 @@ function SelectRecord
 		echo "* NO available data!"
         sleep 1
 	fi
-
 
 	echo -e "\nPress [b] return to previous menu ."
 	read -p "~> " back
@@ -125,17 +123,18 @@ function SelectSpecificRecord
 
 	for (( i=1 ; i<$cols_num ; i++ ))
     do
-		specific_col_name=`cat $path/$table_name | head -1 | cut -d: -f$i` # get number of column that entered by user
 
-		if [[ $selected_col_name == $specific_col_name ]] # check if the column name 
+
+		specific_col_name=`cat $path/$table_name | head -1 | cut -d: -f$i`
+
+		if [[ $selected_col_name == $specific_col_name ]]
 		then 
+
+		
 			res=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$i`
 			echo -e "\n$selected_col_name of record with Primary key [$Pkey] :"
 			echo -e "--> $res"
-		else
-			echo -e "* The Column name you entered is wrong!"
-			sleep 1
-			SelectSpecificRecord
+
 		fi
 	done
 
