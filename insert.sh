@@ -61,7 +61,7 @@ function InsertData
 
             if [[ $value != +([0-9]) ]]
             then
-                echo -e "\n* Please, Enter INETGER number.\n  You will enter the data of record from beginning...\n"
+                echo -e "\n* Please, Enter INETGER number....\n"
 
                 sleep 1
                 continue

@@ -103,7 +103,6 @@ function UpdateRecord
 
 	while [[ $i < $cols_num ]]
     do
-	echo "Start ttttttttttttttttttt"
 
 		col_name=$(awk -F: '{if(NR==1) for ( i=1; i<2; i++ ) print $'$i'}' $path/$table_name) # get name of column from line 1 each loop
         col_type=$(awk -F: '{if(NR==2) for ( i=1; i<2; i++ ) print $'$i'}' $path/$table_name) # get type of column from line 2 each loop
@@ -121,19 +120,16 @@ function UpdateRecord
 	
 		if [[ $selection = "YES" ]]
 		then
-		echo "1"
 			echo -e "\nPlease Enter new Value ..."
 			read newColumn
 
 			if [[ $col_type = "int" ]]
 			then
-				echo "2"
 				if [[ $flag -eq 1 ]]
 				then
 					Pcheck=`awk -F: '{if ($1 == "'$newColumn'" && NR>2 && NR!="'$row_num'" ) print 1}' $path/$table_name`  # this line check if PK is exist (will print 1)
 					if  [[ $Pcheck == "1" ]]
 					then
-					echo "3"
 						echo -e "* Sorry, you can't duplicate the primary key.\n  please try again...\n"
 						
 						sleep 1
@@ -143,18 +139,19 @@ function UpdateRecord
 
 				if [[ $newColumn != +([0-9]) ]]
 				then
-				echo "4"
-					echo -e "\n* Please, Enter INETGER number.\n  You will enter the data of record from beginning...\n"
+					echo -e "\n* Please, Enter INETGER number..... \n"
 
 					sleep 1
 					continue
 
 				else
-				echo "5"
 					oldColumn=`awk -F: '{if (NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$i`
 					sed -i ''$row_num's/'$oldColumn'/'$newColumn'/g' $path/$table_name
 					((i++))
 					((flag=0))
+					
+					echo -e "\n* Column Updated succefully...\n"
+					sleep 1
 				fi
 			fi
 
@@ -162,15 +159,12 @@ function UpdateRecord
 			# Check The values if String.
 			if [[ $col_type = "str" ]]
 			then
-				echo "6"
 				if [[ $flag -eq 1 ]]
 				then
-				echo "7"
 					Pcheck=`awk -F: '{if ($1 == "'$newColumn'" && NR>2 && NR!="'$row_num'" ) print 1}' $path/$table_name`  # this line check if PK is exist (will print 1)
 
 					if  [[ $Pcheck -eq 1 ]]
 					then
-					echo "8"
 						echo -e "* Sorry, you can't duplicate the primary key.\n  please try again...\n"
 						sleep 1
 
@@ -179,17 +173,17 @@ function UpdateRecord
 
 				if [[ $newColumn != +([a-zA-Z]) ]]
 				then
-				echo "9"
 					echo -e "\n* Please, Enter STRING .\n"
 					sleep 1
 				
 				else
-				echo "1"
 					oldColumn=`awk -F: '{if (NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$i`
-					echo "oldColumn $oldColumn"
 					sed -i ''$row_num's/'$oldColumn'/'$newColumn'/g' $path/$table_name
 					((i++))
 					((flag=0))
+					
+					echo -e "\n* Column Updated succefully...\n"
+					sleep 1
 				fi
 
 

@@ -62,7 +62,7 @@ function MetaData
 						case $col_type in
 								"Integer") column_type="int"; break;;
 								"string") column_type="str"; break;;
-								*) echo -e "Wrong Choise..\n  You will enter table metadata from begining ... "; 
+								*) echo -e "Wrong Choise..\n "; 
 						esac
 					done
 					metaData+=$col_name$sep
@@ -71,7 +71,7 @@ function MetaData
 					((counter++))
 					((flag=0))
 				else
-					echo -e "* Column name must be string.\n  You will enter table metadata from beginning ..."
+					echo -e "* Column name must be string.\n"
 					continue
 				fi
 
@@ -84,7 +84,7 @@ function MetaData
 
 					if [[ $col_name != +([a-zA-Z]) ]]
 					then
-						echo -e "* Column name must be string.\n  You will enter table metadata from beginning ..."
+						echo -e "* Column name must be string.\n"
 						continue
 					else
 
@@ -93,7 +93,7 @@ function MetaData
 							case $col_type in
 									"Integer") column_type="int"; break;;
 									"string") column_type="str"; break;;
-									*) echo -e "Wrong Choise..\n  You will enter table metadata from begining ... ";
+									*) echo -e "Wrong Choise..\n";
 							esac
 						done
 						metaData+=$col_name$sep
