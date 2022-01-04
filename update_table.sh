@@ -20,7 +20,7 @@ then
     . ./use_db.sh
 fi
 
-function Ubdate_table 
+function UbdateColumn 
 {    
 
 
@@ -34,7 +34,7 @@ function Ubdate_table
         else
 		echo "* The primary key you entered is wrong!"
         sleep 1
-		Ubdate_table
+		UbdateColumn
 	fi
 
 
@@ -79,7 +79,133 @@ function Ubdate_table
 
 }
 
-Ubdate_table
+
+function UpdateRecord
+{
+	((i=1))
+	((flag=1))
+	selection=""
+	echo -e "\n** Enter Primary key value: "
+    read -p "~> " Pkey
+
+
+	Pkcheck=`awk -F: '{if ($1 == "'$Pkey'") print 1}' $path/$table_name` # this line check if PK is exist (will print 1)
+	if  [[ $Pkcheck -eq 1 ]]
+        then
+            row_num=`awk -F: '{if ($1 == "'$Pkey'"){print NR}}' $path/$table_name` # get number of line with primary key $Pkey
+        else
+		echo "* The primary key you entered is wrong!"
+        sleep 1
+		UpdateRecord
+	fi
+
+	cols_num=$(awk -F: '{if(NR==1) print NF}' $path/$table_name) #number of columns in table col+1 (:)
+
+	while [[ $i < $cols_num ]]
+    do
+	echo "Start ttttttttttttttttttt"
+
+		col_name=$(awk -F: '{if(NR==1) for ( i=1; i<2; i++ ) print $'$i'}' $path/$table_name) # get name of column from line 1 each loop
+        col_type=$(awk -F: '{if(NR==2) for ( i=1; i<2; i++ ) print $'$i'}' $path/$table_name) # get type of column from line 2 each loop
+	
+		echo -e "Do you want to update [$col_name]?"
+		select allow in "yes" "no"
+		do
+			case $allow in
+				"yes") selection="YES" ; break;;
+				"no") selection="NO" ; ((i++)) ; ((flag=0)) ; break;;
+				*) echo -e "\nWrong Choise... try again...\n";
+			esac
+		done
+
+	
+		if [[ $selection = "YES" ]]
+		then
+		echo "1"
+			echo -e "\nPlease Enter new Value ..."
+			read newColumn
+
+			if [[ $col_type = "int" ]]
+			then
+				echo "2"
+				if [[ $flag -eq 1 ]]
+				then
+					Pcheck=`awk -F: '{if ($1 == "'$newColumn'" && NR>2 && NR!="'$row_num'" ) print 1}' $path/$table_name`  # this line check if PK is exist (will print 1)
+					if  [[ $Pcheck == "1" ]]
+					then
+					echo "3"
+						echo -e "* Sorry, you can't duplicate the primary key.\n  please try again...\n"
+						
+						sleep 1
+						continue
+					fi
+				fi
+
+				if [[ $newColumn != +([0-9]) ]]
+				then
+				echo "4"
+					echo -e "\n* Please, Enter INETGER number.\n  You will enter the data of record from beginning...\n"
+
+					sleep 1
+					continue
+
+				else
+				echo "5"
+					oldColumn=`awk -F: '{if (NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$i`
+					sed -i ''$row_num's/'$oldColumn'/'$newColumn'/g' $path/$table_name
+					((i++))
+					((flag=0))
+				fi
+			fi
+
+
+			# Check The values if String.
+			if [[ $col_type = "str" ]]
+			then
+				echo "6"
+				if [[ $flag -eq 1 ]]
+				then
+				echo "7"
+					Pcheck=`awk -F: '{if ($1 == "'$newColumn'" && NR>2 && NR!="'$row_num'" ) print 1}' $path/$table_name`  # this line check if PK is exist (will print 1)
+
+					if  [[ $Pcheck -eq 1 ]]
+					then
+					echo "8"
+						echo -e "* Sorry, you can't duplicate the primary key.\n  please try again...\n"
+						sleep 1
+
+					fi 
+				fi
+
+				if [[ $newColumn != +([a-zA-Z]) ]]
+				then
+				echo "9"
+					echo -e "\n* Please, Enter STRING .\n"
+					sleep 1
+				
+				else
+				echo "1"
+					oldColumn=`awk -F: '{if (NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$i`
+					echo "oldColumn $oldColumn"
+					sed -i ''$row_num's/'$oldColumn'/'$newColumn'/g' $path/$table_name
+					((i++))
+					((flag=0))
+				fi
+
+
+			fi
+		fi
+
+	done
+
+	
+
+}
+
+
+UpdateRecord
+# UbdateColumn
+
 
 
 
