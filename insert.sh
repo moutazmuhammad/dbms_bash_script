@@ -12,8 +12,6 @@ then
     . ./use_db.sh
 fi
 
-((i=1))
-((flag=1))
 # Check if table exist or not
 echo -e "\n** Enter Table name: "
     read -p "~> " table_name
@@ -26,75 +24,82 @@ then
 fi
 
 
+((i=1))
+((flag=1))
+recordData=""
+sep=":"
 function InsertData
 {
-    export recordData=""
-    sep=":"
-    cols_num=$(awk -F: '{if(NR==1) print NF}' $path/$table_name) #number of columns in table col+1
+    
+    cols_num=$(awk -F: '{if(NR==1) print NF}' $path/$table_name) #number of columns in table col+1 (:)
+
     while [[ $i < $cols_num ]]
     do
 
-        col_name=$(awk -F: '{if(NR==1) for ( i=1; i<2; i++ ) print $'$i'}' $path/$table_name) #get name of column from line 1
-        col_type=$(awk -F: '{if(NR==2) for ( i=1; i<2; i++ ) print $'$i'}' $path/$table_name) #get type of column from line 2
-        pk_col=$(awk -F: '{if(NR==3) print $1}' $path/$table_name) #get pk from line 3
+        col_name=$(awk -F: '{if(NR==1) for ( i=1; i<2; i++ ) print $'$i'}' $path/$table_name) # get name of column from line 1 each loop
+        col_type=$(awk -F: '{if(NR==2) for ( i=1; i<2; i++ ) print $'$i'}' $path/$table_name) # get type of column from line 2 each loop
+
+
         read -p "~> Please Enter $col_name [$col_type]: " value
         
 
-        # Check The values if integer or string.
-        if [[ $col_type == 'int' ]]
+        # Check The values if Integer.
+        if [[ $col_type = "int" ]]
         then
-            Pcheck=`awk -F: '{if ($1 == "'$value'" && NR>2 ) print 1}' $path/$table_name`  # this line check if PK is exist (will print 1)
-
+        
             if [[ $flag -eq 1 ]]
             then
-                if  [[ $Pcheck -eq 1 ]]
+                Pcheck=`awk -F: '{if ($1 == "'$value'" && NR>2 ) print 1}' $path/$table_name`  # this line check if PK is exist (will print 1)
+                if  [[ $Pcheck == "1" ]]
                 then
                     echo -e "* Sorry, you can't duplicate the primary key.\n  please try again...\n"
                     
                     sleep 1
-                    InsertData
-                else
-                    ((flag=0))
+                    continue
                 fi
             fi
 
             if [[ $value != +([0-9]) ]]
             then
                 echo -e "\n* Please, Enter INETGER number.\n  You will enter the data of record from beginning...\n"
+
                 sleep 1
-                InsertData
+                continue
+
+            else
+                recordData+=$value$sep
+                ((i++))
+                ((flag=0))
             fi
-            
-        elif [[ $col_type == 'str' ]]
+        fi
+
+        # Check The values if String.
+        if [[ $col_type = "str" ]]
         then
 
             if [[ $flag -eq 1 ]]
-            Pcheck=`awk -F: '{if ($1 == "'$value'" && NR>2 ) print 1}' $path/$table_name`  # this line check if PK is exist (will print 1)
             then
-
+                Pcheck=`awk -F: '{if ($1 == "'$value'" && NR>2 ) print 1}' $path/$table_name`  # this line check if PK is exist (will print 1)
+                
                 if  [[ $Pcheck -eq 1 ]]
                 then
                     echo -e "* Sorry, you can't duplicate the primary key.\n  please try again...\n"
                     sleep 1
-                    InsertData
-                else
-                    ((flag=0))
-                fi 
 
+                fi 
             fi
 
             if [[ $value != +([a-zA-Z]) ]]
             then
-                echo -e "\n* Please, Enter STRING .\n  You will enter the data of record from beginning...\n"
+                echo -e "\n* Please, Enter STRING .\n"
                 sleep 1
-                InsertData
+            
+            else
+                recordData+=$value$sep
+                ((i++))
+                ((flag=0))
             fi
-
         fi
-
-    recordData+=$value$sep
-    ((i++))
-    
     done
 }
 
