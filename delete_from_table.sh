@@ -26,7 +26,7 @@ function DeleteFromTable {
        echo -e "\n** Enter Primary key: "
        read -p "~> " Pkey
        Pcheck=`awk -F: '{if ($1 == "'$Pkey'") print 1}' $path/$table_name` # this line check if PK is exist (will print 1)
-       if  [[ $Pcheck -eq 1 ]]
+       if  [[ $Pcheck -eq 1 ]] 2> /dev/null
         then
             row_Del=`awk -F: '{if ($1 == "'$Pkey'"){print NR}}' $path/$table_name` # this line get number of line with primary key $Pkey
             sed -i ''$row_Del'd' $path/$table_name

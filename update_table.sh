@@ -71,7 +71,7 @@ function Ubdate_table
 	do
 		if [[ $back == 'b' || $b == 'b' ]]
 		then
-			SelectMenu
+			TableMenu
 		else
 			echo -e "\nPress [b] return to previous menu ."
 			read -p "~> " b
