@@ -57,6 +57,8 @@ function SelectAllRecords
 
 	row_num=`awk -F: 'END{print NR}' $path/$table_name` # Number of record in table
 	((row_num-=2)) # Number of records with out lines [1 (colum name) 2 (column type)]
+
+	column -t -s':' $path/$table_name | head -1
 	column -t -s':' $path/$table_name | tail -$row_num # column command [-t] print in columns [-s] separator
 
 	echo -e "\nPress [b] return to previous menu ."
@@ -89,7 +91,9 @@ function SelectRecord
 	if  [[ $Pcheck -eq 1 ]]
         then
             row_num=`awk -F: '{if ($1 == "'$Pkey'"){print NR}}' $path/$table_name` # this line get number of line with primary key $Pkey
-            awk '{if(NR=="'$row_num'") print $0}' $path/$table_name | column -t -s':'
+			
+			column -t -s':' $path/$table_name | head -1
+            column -t -s':' $path/$table_name | awk '{if(NR=="'$row_num'") print $0}'
         else
 		echo "* NO available data!"
         sleep 1
@@ -130,6 +134,7 @@ function SelectSpecificRecord
 
 	cols_num=`awk -F: '{if(NR==1) print NF}' $path/$table_name` #number of columns in table col+1
 
+	((flag=1))
 	for (( i=1 ; i<$cols_num ; i++ ))
     do
 
@@ -141,11 +146,21 @@ function SelectSpecificRecord
 
 		
 			res=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$i` # this line print the record has primary key enterd by user
-			echo -e "\n$selected_col_name of record with Primary key [$Pkey] :"
+			echo -e "\n** [$selected_col_name] of record with Primary key [$Pkey] :"
 			echo -e "--> $res"
+			((flag=0))
 
 		fi
 	done
+
+	if [[ $flag -eq 1 ]]
+	then 
+
+		echo -e "\n* Column name you entered is Worng!"
+        sleep 1
+
+	fi
+
 
 	echo -e "\nPress [b] return to previous menu ."
 	read -p "~> " back

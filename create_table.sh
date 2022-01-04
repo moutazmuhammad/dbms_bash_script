@@ -39,6 +39,7 @@ function MetaData
 	sep=":"
 
 	((i=0))
+	((counter=1))
 
 	echo -e '\n** Enter Number of Columns: '
 	read -p "~> " col_num
@@ -51,7 +52,7 @@ function MetaData
 
 			if [[ $flag -eq 1 ]]
 			then
-				echo -e "\n** Enter Primary Key column [$i]:"
+				echo -e "\n** Enter Primary Key column [$counter]:"
 				read -p "~> " col_name
 
 				if [[ $col_name == +([a-zA-Z]) ]]
@@ -67,6 +68,7 @@ function MetaData
 					metaData+=$col_name$sep
 					ColumnTypeLine+=$column_type$sep
 					((i++))
+					((counter++))
 					((flag=0))
 				else
 					echo -e "* Column name must be string.\n  You will enter table metadata from beginning ..."
@@ -77,7 +79,7 @@ function MetaData
 
 				if [[ $col_name == +([a-zA-Z]) ]]
 				then
-					echo -e "\n** Enter column [$i]:"
+					echo -e "\n** Enter column [$counter]:"
 					read -p "~> " col_name
 
 					if [[ $col_name != +([a-zA-Z]) ]]
@@ -98,6 +100,7 @@ function MetaData
 						ColumnTypeLine+=$column_type$sep
 
 						((i++))
+						((counter++))
 
 					fi
 				fi

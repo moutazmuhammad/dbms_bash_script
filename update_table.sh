@@ -38,7 +38,6 @@ function Ubdate_table
 	fi
 
 
-
 	echo -e "\n** Enter Column Name: "
     read -p "~> " selected_col_name
 
