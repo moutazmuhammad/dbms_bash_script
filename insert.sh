@@ -113,4 +113,3 @@ function echoData
     . ./use_db.sh
 }
 echoData
-

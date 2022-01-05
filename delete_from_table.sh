@@ -54,4 +54,4 @@ function DeleteFromTable {
 
 DeleteFromTable
 . ./use_db.sh
-             
+       

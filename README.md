@@ -31,13 +31,16 @@ After Creating a Database you can do the following :
 You must create at least one table to use these options.
 
 ## select table menu
-after choosing (Select From Table) from the previous menu you can do the following :
+after choosing (Select From Table) from Use  Database menu you can do the following :
 
 - Select All Records.       
 - Select Specific Record.  
 - Select Specific Cokumn.   
 - Return to previous menu.
 
- 
+## Update table menu
+after choosing (update From Table) from Use  Database menu you can do the following :
 
-
+- Update spesific cloumn.       
+- Update Specific Record.  
+- Return to previous menu.   
