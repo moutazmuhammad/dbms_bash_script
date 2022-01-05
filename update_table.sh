@@ -19,7 +19,26 @@ then
     sleep 1
     . ./use_db.sh
 fi
+function Update_Menu
+{
+	clear
+	echo -e "\n\n            o<><><><><><><><><><><><><><><><>o"
+	echo "            |                                |"
+	echo "            |  1 -> Update spesific cloumn   |"
+	echo "            |  2 -> Update Specific Record   |"
+	echo "            |  3 -> Return to previous menu  |"
+	echo "            |                                |"
+    echo -e "            o<><><><><><><><><><><><><><><><>o\n"
 
+	read -p "~> Please, Enter a number: " num
+
+	case $num in
+		1) UbdateColumn ;;
+		2) UpdateRecord;;
+		3) . ./use_db.sh ;;
+		*) echo "* Wrong Choise! please Enter Correct Number..."; sleep 1; clear; Select_Menu;;
+	esac
+}
 function UbdateColumn 
 {    
 
@@ -51,8 +70,8 @@ function UbdateColumn
 		if [[ $selected_col_name == $specific_col_name ]]
 		then 
 
-			echo -e "\* Enter new Value to set: "
-        	read newValue
+			echo -e "\n** Enter new Value to set: "
+        	read -p "~> " newValue
 
             oldValue=`awk -F: '{if(NR=="'$row_num'") print $0}' $path/$table_name | cut -d: -f$i` # this line git the old value
 
@@ -70,7 +89,7 @@ function UbdateColumn
 	do
 		if [[ $back == 'b' || $b == 'b' ]]
 		then
-			TableMenu
+			Update_Menu
 		else
 			echo -e "\nPress [b] return to previous menu ."
 			read -p "~> " b
@@ -107,7 +126,7 @@ function UpdateRecord
 		col_name=$(awk -F: '{if(NR==1) for ( i=1; i<2; i++ ) print $'$i'}' $path/$table_name) # get name of column from line 1 each loop
         col_type=$(awk -F: '{if(NR==2) for ( i=1; i<2; i++ ) print $'$i'}' $path/$table_name) # get type of column from line 2 each loop
 	
-		echo -e "Do you want to update [$col_name]?"
+		echo -e "\n** Do you want to update [$col_name]?"
 		select allow in "yes" "no"
 		do
 			case $allow in
@@ -120,7 +139,7 @@ function UpdateRecord
 	
 		if [[ $selection = "YES" ]]
 		then
-			echo -e "\nPlease Enter new Value ..."
+			echo -e "\n** Please Enter new Value ..."
 			read newColumn
 
 			if [[ $col_type = "int" ]]
@@ -139,7 +158,7 @@ function UpdateRecord
 
 				if [[ $newColumn != +([0-9]) ]]
 				then
-					echo -e "\n* Please, Enter INETGER number..... \n"
+					echo -e "\n** Please, Enter INETGER number..... \n"
 
 					sleep 1
 					continue
@@ -193,11 +212,23 @@ function UpdateRecord
 	done
 
 	
+	echo -e "\nPress [b] return to previous menu ."
+	read -p "~> " back
+	while true
+	do
+		if [[ $back == 'b' || $b == 'b' ]]
+		then
+			Update_Menu
+		else
+			echo -e "\nPress [b] return to previous menu ."
+			read -p "~> " b
+		fi
+	done
 
 }
 
-
-UpdateRecord
+Update_Menu
+#UpdateRecord
 # UbdateColumn
 
 

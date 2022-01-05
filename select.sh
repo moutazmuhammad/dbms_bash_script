@@ -1,8 +1,6 @@
 #!/bin/bash
 shopt -s extglob
 
-clear
-
 path=./my_dbms/$select_name
 
 db_number=`ls $path | wc -l`
@@ -24,7 +22,7 @@ then
     sleep 1
     . ./insert.sh
 fi
-
+clear
 
 function SelectMenu
 {
