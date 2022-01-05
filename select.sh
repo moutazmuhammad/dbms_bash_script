@@ -43,8 +43,8 @@ function SelectMenu
 	echo "            |                                |"
 	echo "            |  1 -> Select All Records       |"
 	echo "            |  2 -> Select Specific Record   |"
-	echo "            |  3 -> Select Specific Cokumn   |"
-	echo "            |  4 -> Return to previous menu  |"
+	echo "            |  3 -> Select Specific Column   |"
+	echo "            |  4 -> Return To Previous Menu  |"
 	echo "            |                                |"
     echo -e "            o<><><><><><><><><><><><><><><><>o\n"
 

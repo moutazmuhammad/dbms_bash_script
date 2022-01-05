@@ -35,9 +35,9 @@ function Update_Menu
 	clear
 	echo -e "\n\n            o<><><><><><><><><><><><><><><><>o"
 	echo "            |                                |"
-	echo "            |  1 -> Update spesific cloumn   |"
+	echo "            |  1 -> Update Spesific Cloumn   |"
 	echo "            |  2 -> Update Specific Record   |"
-	echo "            |  3 -> Return to previous menu  |"
+	echo "            |  3 -> Return To previous Menu  |"
 	echo "            |                                |"
     echo -e "            o<><><><><><><><><><><><><><><><>o\n"
 
