@@ -201,7 +201,7 @@ function UpdateRecord
 					fi 
 				fi
 
-				if [[ $newColumn != +([a-zA-Z]) ]]
+				if [[ $newColumn != +([a-zA-Z_@.]) ]]
 				then
 					echo -e "\n* Please, Enter STRING .\n"
 					sleep 1

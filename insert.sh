@@ -89,7 +89,7 @@ function InsertData
                 fi 
             fi
 
-            if [[ $value != +([a-zA-Z]) ]]
+            if [[ $value != +([a-zA-Z_@.]) ]]
             then
                 echo -e "\n* Please, Enter STRING .\n"
                 sleep 1
