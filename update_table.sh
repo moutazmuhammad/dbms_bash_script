@@ -20,6 +20,16 @@ then
     . ./use_db.sh
 fi
 
+# Check number of PK in table 
+num_of_PK=`awk -F: '{if (NR<3) print 1}' $path/$table_name | wc -l`
+
+if  [[ $num_of_PK -lt 3 ]]
+then
+	echo -e "\n* There is no record in this table yet!"
+	sleep 1
+	. ./use_db.sh
+fi
+
 function Update_Menu
 {
 	clear

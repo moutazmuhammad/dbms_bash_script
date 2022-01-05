@@ -24,14 +24,14 @@ then
 fi
 
 # Check number of PK in table 
-num_of_pk=`awk -F: '{if (NR<3) print 1}' $path/$table_name`
+num_of_PK=`awk -F: '{if (NR<3) print 1}' $path/$table_name | wc -l`
 
-	if  [[ $num_of_pk -eq 1 ]]
-	then
-		echo -e "\n* There is no record in this table yet!"
-        sleep 1
-		. ./use_db.sh
-	fi
+if  [[ $num_of_PK -lt 3 ]]
+then
+	echo -e "\n* There is no record in this table yet!"
+	sleep 1
+	. ./use_db.sh
+fi
 
 
 clear
@@ -103,7 +103,7 @@ function SelectRecord
 			echo -e "\n----------------------------------------"
 			echo -e "** Record data with Primary key [$Pkey] "
 			echo -e "----------------------------------------\n"
-			
+
             row_num=`awk -F: '{if ($1 == "'$Pkey'"){print NR}}' $path/$table_name` # this line get number of line with primary key $Pkey
 			
 			column -t -s':' $path/$table_name | head -1
