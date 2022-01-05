@@ -25,7 +25,6 @@ fi
 
 # Check number of PK in table 
 num_of_PK=`cat $path/$table_name | wc -l`
-echo "num_of_PK $num_of_PK"
 if  [[ $num_of_PK -eq 2 ]]
 then
 	echo -e "\n* There is no record in this table yet!"
