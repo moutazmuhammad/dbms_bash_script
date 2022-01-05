@@ -18,7 +18,7 @@ echo -e "\n** Enter Table name: "
 
 if [ ! -f $path/$table_name ]
 then
-    echo -e "\n* Table ($table_name) is not Exist.\nPlease try again... \n"
+    echo -e "\n* Table ($table_name) is not Exist.\n  Please try again... \n"
     sleep 1
     . ./insert.sh
 fi

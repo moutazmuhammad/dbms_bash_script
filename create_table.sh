@@ -29,8 +29,28 @@ function createTable
 	fi
 }
 
-((flag=1))
 
+all_columns=""
+col_name=""
+
+function checkColumnExist # this function dose not all to duplicate column name
+{
+	numb=`echo "$all_columns" | awk -F: '{print NF}'`
+
+	for ((i=1 ; i<$numb ; i++))
+	do
+		checker=`echo $all_columns | cut -d: -f$i`
+		while [[ $checker == $col_name ]]
+		do
+			echo -e "\n* You Can  not duplicate column name.\n  Please, Enter New Column name:"
+			read -p "~> " col_name
+			
+		done
+	done
+}
+
+
+((flag=1))
 metaData=""
 column_type=""
 ColumnTypeLine=""
@@ -44,6 +64,7 @@ function MetaData
 	echo -e '\n** Enter Number of Columns: '
 	read -p "~> " col_num
 
+	((col_num++))
 	if [[ $col_num == +([1-9]) ]]
 	then
 
@@ -54,6 +75,7 @@ function MetaData
 			then
 				echo -e "\n** Enter Primary Key column [$counter]:"
 				read -p "~> " col_name
+				all_columns+=$col_name$sep
 
 				if [[ $col_name == +([a-zA-Z]) ]]
 				then
@@ -81,6 +103,10 @@ function MetaData
 				then
 					echo -e "\n** Enter column [$counter]:"
 					read -p "~> " col_name
+
+					checkColumnExist
+
+					all_columns+=$col_name$sep
 
 					if [[ $col_name != +([a-zA-Z]) ]]
 					then
