@@ -22,6 +22,18 @@ then
     sleep 1
     . ./insert.sh
 fi
+
+# Check number of PK in table 
+num_of_pk=`awk -F: '{if (NR<3) print 1}' $path/$table_name`
+
+	if  [[ $num_of_pk -eq 1 ]]
+	then
+		echo -e "\n* There is no record in this table yet!"
+        sleep 1
+		. ./use_db.sh
+	fi
+
+
 clear
 
 function SelectMenu
@@ -49,16 +61,18 @@ function SelectMenu
 
 function SelectAllRecords
 {
-    echo -e "\n-----------------------"
-    echo -e "** The Avelable Records"
-    echo -e "-----------------------\n"
 
-	row_num=`awk -F: 'END{print NR}' $path/$table_name` # Number of record in table
-	((row_num-=2)) # Number of records with out lines [1 (colum name) 2 (column type)]
+		echo -e "\n-----------------------"
+		echo -e "** The Avelable Records"
+		echo -e "-----------------------\n"
 
-	column -t -s':' $path/$table_name | head -1
-	column -t -s':' $path/$table_name | tail -$row_num # column command [-t] print in columns [-s] separator
+		row_num=`awk -F: 'END{print NR}' $path/$table_name` # Number of record in table
+		((row_num-=2)) # Number of records with out lines [1 (colum name) 2 (column type)]
 
+		column -t -s':' $path/$table_name | head -1
+		column -t -s':' $path/$table_name | tail -$row_num # column command [-t] print in columns [-s] separator
+
+	
 	echo -e "\nPress [b] return to previous menu ."
 	read -p "~> " back
 
@@ -81,13 +95,15 @@ function SelectRecord
 	echo -e "\n** Enter Primary key: "
     read -p "~> " Pkey
 
-    echo -e "\n----------------------------------------"
-    echo -e "** Record data with Primary key [$Pkey] "
-    echo -e "----------------------------------------\n"
+    
 
-	Pcheck=`awk -F: '{if ($1 == "'$Pkey'") print 1}' $path/$table_name` # this line check if PK is exist (will print 1)
+	Pcheck=`awk -F: '{if ($1 == "'$Pkey'" && NR>2) print 1}' $path/$table_name` # this line check if PK is exist (will print 1)
 	if  [[ $Pcheck -eq 1 ]]
         then
+			echo -e "\n----------------------------------------"
+			echo -e "** Record data with Primary key [$Pkey] "
+			echo -e "----------------------------------------\n"
+			
             row_num=`awk -F: '{if ($1 == "'$Pkey'"){print NR}}' $path/$table_name` # this line get number of line with primary key $Pkey
 			
 			column -t -s':' $path/$table_name | head -1
@@ -117,7 +133,7 @@ function SelectSpecificRecord
 	echo -e "\n** Enter Primary key value: "
     read -p "~> " Pkey
 
-	Pkcheck=`awk -F: '{if ($1 == "'$Pkey'") print 1}' $path/$table_name` # this line check if PK is exist (will print 1)
+	Pkcheck=`awk -F: '{if ($1 == "'$Pkey'" && NR>2) print 1}' $path/$table_name` # this line check if PK is exist (will print 1)
 	if  [[ $Pkcheck -eq 1 ]]
         then
             row_num=`awk -F: '{if ($1 == "'$Pkey'"){print NR}}' $path/$table_name` # this line get number of line with primary key $Pkey
@@ -126,7 +142,7 @@ function SelectSpecificRecord
         sleep 1
 		SelectSpecificRecord
 	fi
-
+	
 	echo -e "\n** Enter Column Name: "
     read -p "~> " selected_col_name
 

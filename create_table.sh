@@ -24,7 +24,7 @@ function createTable
 				createTable
 			fi
 	else
-			echo -e "\n* Table name can not contain number or spesial characters.\nplease, Try again..."
+			echo -e "\n* Table name can not contain number or spesial characters.\n  please, Try again..."
 			createTable ;
 	fi
 }

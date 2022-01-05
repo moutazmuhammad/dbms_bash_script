@@ -15,10 +15,11 @@ echo -e "\n** Enter Table name: "
 
 if [ ! -f $path/$table_name ]
 then
-    echo -e "\n* Table ($table_name) is not Exist.\nPlease try again... \n"
+    echo -e "\n* Table ($table_name) is not Exist.\n  Please try again... \n"
     sleep 1
     . ./use_db.sh
 fi
+
 function Update_Menu
 {
 	clear
@@ -46,7 +47,7 @@ function UbdateColumn
 	echo -e "\n** Enter Primary key value: "
     read -p "~> " Pkey
 
-	Pkcheck=`awk -F: '{if ($1 == "'$Pkey'") print 1}' $path/$table_name` # this line check if PK is exist (will print 1)
+	Pkcheck=`awk -F: '{if ($1 == "'$Pkey'" && NR>2) print 1}' $path/$table_name` # this line check if PK is exist (will print 1)
 	if  [[ $Pkcheck -eq 1 ]]
         then
             row_num=`awk -F: '{if ($1 == "'$Pkey'"){print NR}}' $path/$table_name` # this line get number of line with primary key $Pkey
@@ -108,7 +109,7 @@ function UpdateRecord
     read -p "~> " Pkey
 
 
-	Pkcheck=`awk -F: '{if ($1 == "'$Pkey'") print 1}' $path/$table_name` # this line check if PK is exist (will print 1)
+	Pkcheck=`awk -F: '{if ($1 == "'$Pkey'" && NR>2) print 1}' $path/$table_name` # this line check if PK is exist (will print 1)
 	if  [[ $Pkcheck -eq 1 ]]
         then
             row_num=`awk -F: '{if ($1 == "'$Pkey'"){print NR}}' $path/$table_name` # get number of line with primary key $Pkey
@@ -140,7 +141,7 @@ function UpdateRecord
 		if [[ $selection = "YES" ]]
 		then
 			echo -e "\n** Please Enter new Value ..."
-			read newColumn
+			read -p "~> " newColumn
 
 			if [[ $col_type = "int" ]]
 			then
