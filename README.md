@@ -35,7 +35,7 @@ after choosing (Select From Table) from Use  Database menu you can do the follow
 
 - Select All Records.       
 - Select Specific Record.  
-- Select Specific Cokumn.   
+- Select Specific Column.   
 - Return to previous menu.
 
 ## Update table menu
