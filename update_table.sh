@@ -228,8 +228,7 @@ function UpdateRecord
 }
 
 Update_Menu
-#UpdateRecord
-# UbdateColumn
+
 
 
 
