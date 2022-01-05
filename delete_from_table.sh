@@ -31,6 +31,27 @@ then
 	. ./use_db.sh
 fi
 
+function Delete_Menu
+{
+	clear
+	echo -e "\n\n            o<><><><><><><><><><><><><><><><>o"
+	echo "            |                                |"
+	echo "            |  1 -> Delete All Records       |"
+	echo "            |  2 -> Delete Specific Record   |"
+	echo "            |  3 -> Return to previous menu  |"
+	echo "            |                                |"
+    echo -e "            o<><><><><><><><><><><><><><><><>o\n"
+
+	read -p "~> Please, Enter a number: " num
+
+	case $num in
+		1) DeleteAllRecords ;;
+		2) DeleteFromTable;;	
+		3) . ./use_db.sh ;;
+		*) echo "* Wrong Choise! please Enter Correct Number..."; sleep 1; clear; SelectMenu;;
+	esac
+}
+
 
 function DeleteFromTable {
        echo -e "\n** Enter Primary key: "
@@ -47,6 +68,7 @@ function DeleteFromTable {
                 sed -i ''$row_Del'd' $path/$table_name
                 echo -e "* Data with Primary key $Pkey deleted succefully....\n"
                 sleep 1
+                Delete_Menu
                 else
                     echo "* Not allow to delete Metadata!"
                     sleep 1
@@ -61,7 +83,15 @@ function DeleteFromTable {
 	fi
 
 }
+function DeleteAllRecords
+{
+	sed -i '3,$ d' $path/$table_name
+    echo "* All Records Deleted Successfully. "
+    sleep 1
+  
+  
+    Delete_Menu
+}
 
-DeleteFromTable
-. ./use_db.sh
-       
+Delete_Menu
+

@@ -30,7 +30,8 @@ function RootMenu
   		2) ListDatabases ;; #call function
   		3) UseDatabase ;;
     		4) . ./drop_db.sh ;;
-      		5) exit ;;
+      		5) exit 
+			  clear ;;
 		*) echo "* Wrong Choise! please Enter Correct Number..."; RootMenu;;
 	esac
 
