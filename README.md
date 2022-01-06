@@ -44,3 +44,10 @@ after choosing (update From Table) from Use  Database menu you can do the follow
 - Update spesific cloumn.       
 - Update Specific Record.  
 - Return to previous menu.   
+
+## Delete table menu
+after choosing (Delete From Table) from Use  Database menu you can do the following :
+
+- Delete All Records.
+- Delete Specific Record.  
+- Return to previous menu.   
