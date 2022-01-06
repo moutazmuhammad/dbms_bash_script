@@ -20,7 +20,7 @@ function createDB
 				createDB
 			fi 
 			;;
-		*) echo -e "\n* Database name can not contain number or spesial characters.\nplease, Try again..."
+		*) echo -e "\n* Database name can not contain number or special characters.\nplease, Try again..."
 		createDB ;;
 	esac
 }
