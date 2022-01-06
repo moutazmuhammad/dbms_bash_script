@@ -7,7 +7,7 @@ clear
 
 echo -e "by: \t Moutaz Muhammad \t & \t Muhammad Alaa"
 
-echo -e "\n                    WELCOME TO MY DBMS\n"
+echo -e "\n                    WELCOME TO OUR DBMS\n"
 
 # Main Function: Each number executes a script. 
 function RootMenu 

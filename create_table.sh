@@ -24,25 +24,25 @@ function createTable
 				createTable
 			fi
 	else
-			echo -e "\n* Table name can not contain number or spesial characters.\n  please, Try again..."
+			echo -e "\n* Table name can not contain number or special characters.\n  please, Try again..."
 			createTable ;
 	fi
 }
 
 
-all_columns=""
+all_columns="" # has all names of columns that the user enter.
 col_name=""
 
-function checkColumnExist # this function dose not all to duplicate column name
+function checkColumnExist # this function dose not allow to duplicate column name
 {
-	numb=`echo "$all_columns" | awk -F: '{print NF}'`
+	numb=`echo "$all_columns" | awk -F: '{print NF}'` 
 
 	for ((i=1 ; i<$numb ; i++))
 	do
 		checker=`echo $all_columns | cut -d: -f$i`
 		while [[ $checker == $col_name ]]
 		do
-			echo -e "\n* You Can  not duplicate column name.\n  Please, Enter New Column name:"
+			echo -e "\n* You Can not Duplicate Column Name.\n  Please, Enter New Column Name:"
 			read -p "~> " col_name
 			
 		done
@@ -50,7 +50,7 @@ function checkColumnExist # this function dose not all to duplicate column name
 }
 
 
-((flag=1))
+((flag=1)) # for pk
 metaData=""
 column_type=""
 ColumnTypeLine=""
