@@ -27,11 +27,11 @@ function RootMenu
 
 	case $num in
   		1) . ./create_db.sh ;;
-  		2) ListDatabases ;; #call function
+  		2) ListDatabases ;; # call function
   		3) UseDatabase ;;
-    		4) . ./drop_db.sh ;;
-      		5) exit 
-			  clear ;;
+		4) . ./drop_db.sh ;;
+		5) exit 
+			clear ;;
 		*) echo "* Wrong Choise! please Enter Correct Number..."; RootMenu;;
 	esac
 
@@ -77,7 +77,7 @@ function UseDatabase
 		export select_name
 		read -p "~> Please Enter Database Name: " select_name
 
-		if [[ $select_name == +([a-zA-Z]) ]] # to fix 'enter' bug
+		if [[ $select_name == +([a-zA-Z]) ]]
 		then
 			if [ -d ./my_dbms/$select_name ]
 			then

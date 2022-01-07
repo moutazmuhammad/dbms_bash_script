@@ -12,7 +12,7 @@ function TableMenu
 	echo "            |  3 -> Drop Tables              |"
 	echo "            |  4 -> Insert Into Table        |"
 	echo "            |  5 -> Select From Table        |"
-    echo "            |  6 -> Delete From Table        |"
+	echo "            |  6 -> Delete From Table        |"
 	echo "            |  7 -> Update Table             |"
 	echo "            |  8 -> Back To Main Menu        |"
 	echo "            |  9 -> Exit From DBMS           |"

@@ -56,7 +56,7 @@ function Delete_Menu
 function DeleteFromTable {
        echo -e "\n** Enter Primary key: "
        read -p "~> " Pkey
-       Pcheck=`awk -F: '{if ($1 == "'$Pkey'") print 1}' $path/$table_name` # this line check if PK is exist (will print 1)
+       Pcheck=`awk -F: '{if ($1 == "'$Pkey'" && NR<=2) print 1}' $path/$table_name` # this line check if PK is exist (will print 1)
 
        if  [[ $Pcheck -eq 1 ]]
         then
