@@ -44,13 +44,13 @@ function Update_Menu
 	read -p "~> Please, Enter a number: " num
 
 	case $num in
-		1) UbdateColumn ;;
+		1) UpdateColumn ;;
 		2) UpdateRecord;;
 		3) . ./use_db.sh ;;
 		*) echo "* Wrong Choise! please Enter Correct Number..."; sleep 1; clear; Select_Menu;;
 	esac
 }
-function UbdateColumn 
+function UpdateColumn 
 {    
 
 
@@ -64,7 +64,7 @@ function UbdateColumn
         else
 		echo "* The primary key you entered is wrong!"
         sleep 1
-		UbdateColumn
+		UpdateColumn
 	fi
 
 

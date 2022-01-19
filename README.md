@@ -1,5 +1,8 @@
 # DBMS_bash_script
-Simple database management system using the bash script implemented by  Moutaz Muhammad & Mohamed Alaa (ITI open source-cloud develpment track intake 42)
+Simple database management system using the bash script implemented by:
+* Moutaz Muhammad
+* Mohamed Alaa 
+(ITI open source-cloud develpment track intake 42)
 
 
 ## Main menu
